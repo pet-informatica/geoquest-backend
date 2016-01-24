@@ -151,3 +151,16 @@ STATICFILES_DIRS = (
 )
 
 SITE_ID = 1
+
+SOCIALACCOUNTS_PROVIDERS = {
+	'facebook' :
+		{'SCOPE': ['email'],
+		'AUTH_PARAMS': {'auth_type' : 'reauthenticate'},
+		'METHOD' : 'oauth2',},
+}
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATIONS = "optional"
+ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Geoquest]"
+ACCOUNT_PASSWORD_MIN_LENGTH = 8
