@@ -62,7 +62,7 @@ ROOT_URLCONF = 'geoquest.urls'
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [],
+		'DIRS': [os.path.join(BASE_DIR, 'templates')],
 		'APP_DIRS': True,
 		'OPTIONS': {
 			'context_processors': [
@@ -70,8 +70,6 @@ TEMPLATES = [
 				'django.template.context_processors.request',
 				'django.contrib.auth.context_processors.auth',
 				'django.contrib.messages.context_processors.messages',
-				'allauth.account.context_processors.account',
-				'allauth.socialaccount.context_processors.socialaccount',
 			],
 		},
 	},
@@ -91,15 +89,15 @@ WSGI_APPLICATION = 'geoquest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-DATABASES = {}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+# DATABASES = {}
 
-DATABASES['default'] =  dj_database_url.config()
+# DATABASES['default'] =  dj_database_url.config()
 
 # Enable Persistent Connections
 DATABASES['default']['CONN_MAX_AGE'] = 500
@@ -150,13 +148,15 @@ STATICFILES_DIRS = (
 	os.path.join(BASE_DIR, 'static'),
 )
 
-SITE_ID = 1
+SITE_ID = 3
 
-SOCIALACCOUNTS_PROVIDERS = {
-	'facebook' :
-		{'SCOPE': ['email'],
-		'AUTH_PARAMS': {'auth_type' : 'reauthenticate'},
-		'METHOD' : 'oauth2',},
+LOGIN_REDIRECT_URL = '/'
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'SCOPE': ['email', 'public_profile'],
+        'METHOD': 'js_sdk'  # instead of 'oauth2'
+    }
 }
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
