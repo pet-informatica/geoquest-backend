@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from geoquest.social_login.views import FacebookLogin
+from geoquest.questions.views import *
 
 urlpatterns = [
 	url(r'^admin/', admin.site.urls),
@@ -24,4 +25,6 @@ urlpatterns = [
 	url(r'^rest-auth/', include('rest_auth.urls')),
 	url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
 	url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
+	url(r'^questions/', RandomQuestion.as_view(), name='question'),
+	url(r'^docs/', include('rest_framework_swagger.urls')),
 ]

@@ -48,7 +48,10 @@ INSTALLED_APPS = [
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.twitter',
-
+	'geoquest.questions',
+	'rest_framework_swagger', #Auto generated documentation
+	'django_filters', #Django Filter
+	
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -103,6 +106,9 @@ WSGI_APPLICATION = 'geoquest.wsgi.application'
 DATABASES = {}
 
 DATABASES['default'] =  dj_database_url.config()
+# DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+# DATABASES['default']['NAME'] = 'geoquest'
+# DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Enable Persistent Connections
 DATABASES['default']['CONN_MAX_AGE'] = 500
@@ -169,3 +175,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATIONS = "optional"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Geoquest]"
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     )
+# }
