@@ -25,6 +25,7 @@ urlpatterns = [
 	url(r'^rest-auth/', include('rest_auth.urls')),
 	url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
 	url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
-	url(r'^questions/', RandomQuestion.as_view(), name='question'),
+	url(r'^questions/', include('geoquest.questions.urls', namespace='questions')),
 	url(r'^docs/', include('rest_framework_swagger.urls')),
+	url(r'^users/', include('geoquest.users.urls', namespace='users')),
 ]

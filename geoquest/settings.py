@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import dj_database_url
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = environ.Path(__file__) - 1
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+APPS_DIR = ROOT_DIR.path('geoquest')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -48,10 +51,10 @@ INSTALLED_APPS = [
 	'allauth.socialaccount',
 	'allauth.socialaccount.providers.facebook',
 	'allauth.socialaccount.providers.twitter',
-	'geoquest.questions',
 	'rest_framework_swagger', #Auto generated documentation
 	'django_filters', #Django Filter
-	
+	'geoquest.questions',
+	'geoquest.users',
 ]
 
 MIDDLEWARE_CLASSES = [
