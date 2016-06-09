@@ -20,12 +20,17 @@ class CategoryViewSet(ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class AnswerViewSet(ListAPIView):
+class AnswerViewSet(ListCreateAPIView):
     serializer_class = AnswerSerializer
 
     def get_queryset(self):
         user = self.request.user
         return Answer.objects.filter(user = user)
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        return Answer.objects.all()
+
 
 class RandomQuestion(ListAPIView):
     
