@@ -14,6 +14,8 @@ import os
 import dj_database_url
 import environ
 
+env = environ.Env()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 ROOT_DIR = environ.Path(__file__) - 1
 
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
 	'allauth.socialaccount.providers.twitter',
 	'rest_framework_swagger', #Auto generated documentation
 	'django_filters', #Django Filter
+	'django_extensions', #Django extra functions
 	'geoquest.questions',
 	'geoquest.users',
 ]
@@ -87,11 +90,8 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-	# Needed to login by username in Django admin, regardless of `allauth`
 	'django.contrib.auth.backends.ModelBackend',
-
-	# `allauth` specific authentication methods, such as login by e-mail
-	'allauth.account.auth_backends.AuthenticationBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 WSGI_APPLICATION = 'geoquest.wsgi.application'
@@ -173,14 +173,25 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATIONS = "optional"
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[Geoquest]"
 ACCOUNT_PASSWORD_MIN_LENGTH = 8
+ACCOUNT_USERNAME_MIN_LENGTH = 3
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     )
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+FACEBOOK_APP_ID = env("FACEBOOK_APP_ID")
+FACEBOOK_APP_SECRET = env("FACEBOOK_APP_SECRET")
+
+SHELL_PLUS = "ipython"
