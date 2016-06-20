@@ -109,9 +109,9 @@ WSGI_APPLICATION = 'geoquest.wsgi.application'
 DATABASES = {}
 
 DATABASES['default'] =  dj_database_url.config()
-# DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
-# DATABASES['default']['NAME'] = 'geoquest'
-# DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+DATABASES['default']['NAME'] = 'geoquest'
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Enable Persistent Connections
 DATABASES['default']['CONN_MAX_AGE'] = 500

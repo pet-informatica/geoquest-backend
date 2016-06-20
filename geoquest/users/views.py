@@ -39,3 +39,12 @@ class RankList(ListAPIView):
 			self.friend_list[request._data['id']] = request._data['picture']['data']['url']
 
 		return Rank.objects.filter(social_account__uid__in=self.friend_list).order_by('-points')
+
+
+class StatisticsList(ListAPIView):
+	serializer_class = UserStatsSerializer
+
+	def get_queryset(self):
+		user = self.request.user
+
+		return UserStatistics.objects.filter(user = user)

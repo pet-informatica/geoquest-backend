@@ -12,3 +12,21 @@ class RankSerializer(serializers.ModelSerializer):
 
 	def get_picture(self, obj):
 		return self.context[obj.social_account.uid]
+
+class CategoryPointsSerializer(serializers.ModelSerializer):
+
+	category = serializers.StringRelatedField()
+
+	class Meta:
+		model = CategoryPoints
+		fields = ('completed', 'points', 'category')
+
+class UserStatsSerializer(serializers.ModelSerializer):
+
+	categories = CategoryPointsSerializer(many = True)
+	best_category = serializers.StringRelatedField()
+	user = serializers.StringRelatedField(source='user.get_full_name')
+
+	class Meta:
+		model = UserStatistics
+		fields = ('categories', 'best_category', 'user', 'completed', 'position', 'last_updated')
