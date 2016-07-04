@@ -12,7 +12,7 @@ django-rest-auth==0.6.0
 django-rest-swagger==0.3.7
 djangorestframework==3.3.2
 environ==1.0
-gnureadline==6.3.3
+pyreadline==2.1
 gunicorn==19.4.5
 ipython==4.2.0
 ipython-genutils==0.1.0

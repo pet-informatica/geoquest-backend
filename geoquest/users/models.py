@@ -29,6 +29,8 @@ class UserStatistics(models.Model):
 	categories = models.ManyToManyField(CategoryPoints)
 	position = models.IntegerField(default = 0)
 	last_updated = models.DateTimeField(auto_now=True)
+	badges = models.ManyToManyField(Badge)
 
 	def __unicode__(self):
 		return "%d %s" % (self.position, self.user.username)
+	

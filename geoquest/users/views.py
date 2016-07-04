@@ -48,3 +48,27 @@ class StatisticsList(ListAPIView):
 		user = self.request.user
 
 		return UserStatistics.objects.filter(user = user)
+
+class BadgeList(ListAPIView):
+	serializer_class = BadgeSerializer
+	image_url = ""
+
+	def get_serializer_context(self):
+		return self.image_url
+
+	def get_queryset(self):
+		user = self.request.user
+		sacc = SocialAccount.objects.get(user = user) #Social Account
+		stkn = SocialToken.objects.get(account = sacc) #Social Token
+		api = Facebook(access_token=stkn.token)
+		request = api.user_picture(id='me').get(params={'type':'large','fields':'url','redirect':'false'})
+		self.image_url = request._data['data']['url']
+
+		return UserStatistics.objects.filter(user = user)
+
+class Progress(ListAPIView):
+	serializer_class = ProgressSerializer
+
+	def get_queryset(self):
+		user = self.request.user
+		return UserStatistics.objects.filter(user = user)

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from .models import *
+from geoquest.questions.serializers import *
+from django.contrib.auth.models import User
 
 class RankSerializer(serializers.ModelSerializer):
 	name = serializers.StringRelatedField(source='user.get_full_name')
@@ -30,3 +32,24 @@ class UserStatsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = UserStatistics
 		fields = ('categories', 'best_category', 'user', 'completed', 'position', 'last_updated')
+
+
+class BadgeSerializer(serializers.ModelSerializer):
+
+	name = serializers.StringRelatedField(source='user.get_full_name')
+	percentage = serializers.FloatField(source='completed')
+	picture = serializers.SerializerMethodField()
+	area = serializers.StringRelatedField(source='best_category.name')
+	badges = BadgeSerializer(many = True)
+
+	def get_picture(self, obj):
+		return self.context
+
+	class Meta:
+		model = UserStatistics
+		fields = ('name', 'percentage', 'picture', 'area', 'badges')
+
+class ProgressSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = UserStatistics
+		fields = ('completed',)
