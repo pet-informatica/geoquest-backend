@@ -188,7 +188,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'geoquest.util.pagination.StandardResultsSetPagination',
 }
 
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'

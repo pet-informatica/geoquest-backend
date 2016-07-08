@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.permissions import AllowAny
 import random
 
 from rest_framework import viewsets
@@ -10,17 +11,19 @@ from .models import Question, Category, Answer
 from .serializers import QuestionSerializer, CategorySerializer, AnswerSerializer
 from .filters import *
 
-class QuestionViewSet(ListAPIView):
+class QuestionList(ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = QuestionFilter
+    permission_classes = (AllowAny,)
 
-class CategoryViewSet(ListAPIView):
+class CategoryList(ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = (AllowAny,)
 
-class AnswerViewSet(ListCreateAPIView):
+class AnswerList(ListCreateAPIView):
     serializer_class = AnswerSerializer
 
     def get_queryset(self):
